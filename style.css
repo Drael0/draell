@@ -442,4 +442,26 @@ body.hovered .cursor-dot {
 /* Üzerine gelince (Bir tık açılsın ama patlamasın) */
 ::-webkit-scrollbar-thumb:hover {
     background: #800000; /* Bordo */
+
+}
+/* === MOBİL AYARLARI (TELEFONDA İMLECİ GİZLE) === */
+@media screen and (max-width: 768px) {
+    
+    /* 1. Özel imleç kutusunu/resmini tamamen yok et */
+    .cursor, .cursor-dot, .cursor-outline, .click-particle {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+
+    /* 2. Tüm elementlerde standart sistem imlecine (parmak) dön */
+    * {
+        cursor: auto !important;
+    }
+
+    /* 3. Mobilde hover (üstüne gelme) efektlerini kapat */
+    /* Çünkü mobilde parmakla 'üstüne gelme' olmaz, direkt tıklama olur */
+    .card:hover, .spotify-card:hover {
+        transform: none !important;
+    }
 }
