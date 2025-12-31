@@ -212,5 +212,38 @@ document.addEventListener('click', function(e) {
         });
     });
 </script>
+    <script>
+    function fixMobileCursor() {
+        // Eğer ekran genişliği 768px veya daha azsa (Telefonsa)
+        if (window.innerWidth <= 768) {
+            
+            // 1. Tüm sayfanın imlecini normale (parmak) çevir
+            document.body.style.cursor = "auto";
+            document.documentElement.style.cursor = "auto";
+            
+            // Tüm linklerde de el işaretinin çıkmasını sağla
+            var allElements = document.querySelectorAll("*");
+            allElements.forEach(function(el) {
+                el.style.cursor = "auto";
+            });
+
+            // 2. Eğer özel imleç için bir DIV kullanıyorsan onu bul ve GİZLE
+            // (Senin imleç class'ın neyse onu buraya ekledim: .cursor, .cursor-dot vb.)
+            var customCursors = document.querySelectorAll(".cursor, .cursor-dot, .cursor-outline, .click-particle");
+            
+            customCursors.forEach(function(cursor) {
+                cursor.style.display = "none";     // Görünmez yap
+                cursor.style.visibility = "hidden"; // Tamamen gizle
+                cursor.remove(); // Hatta direkt sayfadan sil
+            });
+        }
+    }
+
+    // Sayfa yüklenince çalıştır
+    window.onload = fixMobileCursor;
+    // Ekran boyutu değişirse (telefonu yan çevirirse) yine çalıştır
+    window.addEventListener('resize', fixMobileCursor);
+</script>
 </body>
+
 </html>
