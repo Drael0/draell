@@ -244,9 +244,16 @@ document.addEventListener('click', function(e) {
     // Ekran boyutu değişirse (telefonu yan çevirirse) yine çalıştır
     window.addEventListener('resize', fixMobileCursor);
 </script>
+    <script>/* === DÜZELTİLMİŞ KORUMA (SADECE SAĞ TIK) === */
+// Sadece sağ tıkı engeller, siteyi yormaz veya bozmaz.
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+</script>
 </body>
 
 </html>
+
 
 
 
