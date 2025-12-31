@@ -244,7 +244,7 @@ document.addEventListener('click', function(e) {
     // Ekran boyutu değişirse (telefonu yan çevirirse) yine çalıştır
     window.addEventListener('resize', fixMobileCursor);
 </script>
-/* === TAM SESSİZ KORUMA === */
+<script>/* === TAM SESSİZ KORUMA === */
 
 // 1. Sağ Tıkı İptal Et (Hiçbir uyarı vermeden)
 document.addEventListener('contextmenu', function(e) {
@@ -269,8 +269,9 @@ document.onkeydown = function(e) {
     if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
         return false;
     }
-}
+}</script>
 </body>
 
 </html>
+
 
