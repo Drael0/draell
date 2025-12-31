@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drael</title>
+    <link rel="shortcut icon" href="crown.gif" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<div id="music-control">
+    <i class="fa-solid fa-volume-high"></i>
+</div>
+<body>
+
+    <div id="enter-screen">
+    <div class="enter-content">
+        <h1 class="enter-title">Drael</h1>
+        <p class="click-prompt">[ tıkla ]</p>
+    </div>
+</div>
+
+<audio id="bg-music" loop>
+    <source src="muzik.mp3" type="audio/mp3">
+</audio>
+
+<div id="music-control">
+    <i class="fa-solid fa-volume-high"></i>
+</div>
+    <div class="background-overlay" style="background-image: url('arka.gif');"></div>
+
+    <div id="particles-js"></div>
+
+    <div class="card">
+        <div class="profile-container">
+            <img src="profil.jpg" alt="Profil Resmi" class="profile-pic">
+        </div>
+        
+        <h1 class="username">Drael</h1>
+        <p class="bio">Just Human</p>
+        <p class="status">я тебя люблю вероятно</p>
+
+        <div class="social-links">
+            <a onclick="copyDiscord('drae.l')" style="cursor: pointer;">
+    <i class="fa-brands fa-discord"></i>
+</a>
+            <a href="https://steamcommunity.com/profiles/76561199375908952/" target="_blank"><i class="fa-brands fa-steam"></i></a>
+            <a href="https://open.spotify.com/user/qjeclzb3ha3z7619ozqhfi7l9?si=4c4d9b3675b24963" target="_blank"><i class="fa-brands fa-spotify"></i></a>
+            <a href="#" target="_blank"><i class="fa-solid fa-katana"></i></a> </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script>
+        VanillaTilt.init(document.querySelector(".card"), {
+            max: 7,         /* Eğilme derecesi (Düşük = Sakin) */
+            speed: 3000,    /* Hareket hızı (Yüksek = Soft/Yavaş) */
+            reverse: true,  /* Yönü TERSE çevirir */
+            glare: false,   /* Parlama kapalı */
+            "max-glare": 0
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+          "particles": {
+            "number": {
+              "value": 50, /* Parçacık sayısı (Kalabalıksa düşür) */
+              "density": { "enable": true, "value_area": 800 }
+            },
+            "color": { "value": "#ff0000" }, /* RENK: Kırmızı */
+            "shape": { "type": "circle" }, /* Şekil: Yuvarlak (Köz gibi) */
+            "opacity": { 
+                "value": 0.6, 
+                "random": true /* Rastgele parlaklık */
+            },
+            "size": { 
+                "value": 4, 
+                "random": true /* Rastgele boyut */
+            },
+            /* ÇİZGİLER KAPALI: Ağ görüntüsü olmasın */
+            "line_linked": { "enable": false },
+            "move": {
+              "enable": true,
+              "speed": 3, /* Hız (Rüzgar gibi) */
+              "direction": "bottom-right", /* YÖN: Sağ alta doğru savrulsun */
+              "random": false,
+              "straight": false,
+              "out_mode": "out",
+              "bounce": false
+            }
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+              "onhover": { 
+                "enable": true, 
+                "mode": "repulse" /* Mouse gelince rüzgar gibi dağılsın */
+              },
+              "onclick": { "enable": true, "mode": "push" },
+              "resize": true
+            }
+          },
+          "retina_detect": true
+        });
+    </script>
+<div class="cursor-dot">
+    <i class="fa-solid fa-location-arrow"></i>
+</div>
+
+<div class="cursor-outline"></div>
+<div class="cursor-dot"><i class="fa-solid fa-arrow-pointer"></i></div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const cursorDot = document.querySelector('.cursor-dot');
+
+        // Mouse Hareketini Dinle
+        window.addEventListener("mousemove", function (e) {
+            // Mouse neredeyse ok orada (Gecikme yok)
+            cursorDot.style.left = `${e.clientX}px`;
+            cursorDot.style.top = `${e.clientY}px`;
+        });
+
+        // Linklerin üzerine gelince renk değişimi için
+        const clickables = document.querySelectorAll("a, button, .profile-container");
+
+        clickables.forEach(el => {
+            el.addEventListener("mouseenter", () => document.body.classList.add("hovered"));
+            el.addEventListener("mouseleave", () => document.body.classList.remove("hovered"));
+        });
+    });
+</script>
+<div id="toast">Discord Kopyalandı!</div>
+
+<script>
+    function copyDiscord(discordName) {
+        // 1. Panoya kopyala
+        navigator.clipboard.writeText(discordName);
+
+        // 2. Kutuyu göster
+        var x = document.getElementById("toast");
+        x.className = "show";
+        
+        // 3. Kutudaki yazıyı güncelle (Opsiyonel)
+        x.innerText = discordName + " kopyalandı!";
+
+        // 4. 3 saniye sonra gizle
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+</script>
+<script>
+    /* === TIKLAMA EFEKTİ (RED SPARKLES) === */
+document.addEventListener('click', function(e) {
+    // Kaç tane parçacık çıkacağını belirle
+    const particleCount = 8;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('click-particle');
+        
+        // Tıklanan yere konumlandır
+        particle.style.left = e.pageX + 'px';
+        particle.style.top = e.pageY + 'px';
+        
+        // Rastgele yönlere dağıt
+        const x = (Math.random() - 0.5) * 100;
+        const y = (Math.random() - 0.5) * 100;
+        particle.style.setProperty('--x', `${x}px`);
+        particle.style.setProperty('--y', `${y}px`);
+        
+        document.body.appendChild(particle);
+        
+        // Animasyon bitince sil (Çöp birikmesin)
+        setTimeout(() => {
+            particle.remove();
+        }, 1000);
+    }
+});
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var enterScreen = document.getElementById("enter-screen");
+        var audio = document.getElementById("bg-music");
+        var musicControl = document.getElementById("music-control");
+        var musicIcon = musicControl.querySelector("i");
+
+        // 1. GİRİŞ EKRANINA TIKLANINCA
+        enterScreen.addEventListener("click", function() {
+            // Müziği çal
+            audio.volume = 0.2; // Ses seviyesi (%30)
+            audio.play().catch(error => console.log("Oynatma hatası:", error));
+            
+            // Ekranı yavaşça yok et
+            enterScreen.style.opacity = "0";
+            
+            // Animasyon bitince tamamen kaldır ve ses butonunu göster
+            setTimeout(function() {
+                enterScreen.style.display = "none";
+                musicControl.style.display = "block"; // Buton ortaya çıksın
+            }, 1000);
+        });
+
+        // 2. SES BUTONUNA TIKLANINCA (Durdur/Başlat)
+        musicControl.addEventListener("click", function() {
+            if (audio.paused) {
+                audio.play();
+                musicIcon.className = "fa-solid fa-volume-high"; // Sesli ikon
+            } else {
+                audio.pause();
+                musicIcon.className = "fa-solid fa-volume-xmark"; // Sessiz ikon
+            }
+        });
+    });
+</script>
+</body>
+</html>

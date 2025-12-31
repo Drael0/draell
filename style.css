@@ -1,0 +1,445 @@
+/* İki Fontu da İçe Aktar: UnifrakturMaguntia (Gotik) ve VT323 (Piksel) */
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=VT323&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* GENEL YAZILAR: Alt yazılar, bio vs. Piksel/Retro olsun */
+    font-family: 'VT323', monospace; 
+    font-size: 1.2rem;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #000; /* Arka plan yüklenmezse siyah */
+}
+
+/* 1. KATMAN: EN ARKA (GIF/Resim) */
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* GÖRSEL KAYNAĞI: Kullanıcının sağladığı görsel */
+    /* background-image HTML'den geliyor */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    /* Parlaklığı biraz kıstım ki yazılar okunsun */
+    filter: brightness(0.7); 
+    z-index: -2; /* En arkada */
+}
+
+/* 2. KATMAN: ORTA (Partiküller/Közler) */
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Resmin önünde, kartın arkasında */
+}
+
+/* 3. KATMAN: EN ÖN (Senin Kartın) */
+.card {
+    background: rgba(20, 0, 0, 0.5); /* Kırmızımsı siyah, yarı saydam */
+    backdrop-filter: blur(10px); /* Buzlanma efekti */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 0, 0, 0.3); /* Kırmızı ince kenarlık */
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    width: 350px;
+    color: white;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7); /* Koyu gölge */
+    animation: fadeIn 1.5s ease;
+    
+    position: relative;
+    z-index: 10; /* En önde duracak */
+    
+    /* 3D derinlik için gerekli kodlar: */
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+}
+/* --- CRIMSON ÇİÇEK TEMALI PROFİL EFEKTİ --- */
+
+/* 1. Kapsayıcı Kutu (Efektin alanı) */
+.profile-container {
+    position: relative;
+    width: 150px; /* Alanı biraz daha genişlettik */
+    height: 150px;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* 3D Tilt efektinde öne çıkması için */
+    transform-style: preserve-3d;
+    transform: translateZ(40px);
+}
+
+/* 2. Resmin Kendisi */
+.profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* Kenarlık rengini daha asil bir koyu crimson yaptık */
+    border: 3px solid #a50b26; 
+    /* İç gölgeyi daha derinleştirdik */
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 5px 15px rgba(0,0,0,0.5);
+    z-index: 5;
+    transition: all 0.5s ease; /* Geçişleri yumuşattık */
+}
+
+/* 3. Ana Efekt: Dönen Crimson Yaprakları/Sisi */
+.profile-container::before {
+    content: '';
+    position: absolute;
+    /* Alanı resimden daha geniş tuttuk */
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 50%;
+    
+    /* YENİ RENK GEÇİŞİ: Çiçek yaprağı gibi yumuşak ve katmanlı */
+    background: conic-gradient(
+        from 0deg, 
+        transparent 0%, 
+        #dc143c 15%,  /* Crimson */
+        #800000 30%,  /* Koyu Bordo */
+        transparent 50%,
+        #dc143c 65%,  /* Crimson */
+        #800000 80%,  /* Koyu Bordo */
+        transparent 100%
+    );
+    
+    /* Yavaş ve zarif bir dönüş */
+    animation: spin-flower 8s linear infinite;
+    opacity: 0.6; /* Yarı saydam, mistik bir hava için */
+    z-index: 1;
+    /* Enerji yerine duman/yaprak dokusu için yüksek bulanıklık */
+    filter: blur(12px); 
+    /* Karışım modu ile arka planla bütünleşsin */
+    mix-blend-mode: plus-lighter;
+}
+
+/* 4. İkincil Efekt: Hafif Işıltı Halkası (Çiçek özü gibi) */
+.profile-container::after {
+    content: '';
+    position: absolute;
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    border-radius: 50%;
+    /* Çok ince, dışa doğru sönen bir crimson ışıltı */
+    box-shadow: 0 0 20px 5px rgba(220, 20, 60, 0.2);
+    /* Hafifçe nefes alıp versin (büyüyüp küçülsün) */
+    animation: breathe-glow 4s ease-in-out infinite alternate;
+    z-index: 2;
+    opacity: 0.5;
+}
+
+
+/* --- HOVER (Mouse Üzerine Gelince) EFEKTLERİ --- */
+
+/* Resim: Hafifçe büyüsün ve parlaklığı artsın */
+.profile-container:hover .profile-pic {
+    transform: scale(1.05);
+    border-color: #ff1a4a; /* Kenarlık daha parlak bir crimson olsun */
+    box-shadow: 0 0 30px rgba(220, 20, 60, 0.8), inset 0 0 10px rgba(0,0,0,1);
+}
+
+/* Ana Efekt (SİS): Renkler canlansın, parlasın ama hızlanmasın (daha asil) */
+.profile-container:hover::before {
+    opacity: 0.9; /* Daha belirgin */
+    filter: blur(8px) brightness(1.3); /* Biraz daha netleşsin ve parlasın */
+    /* Dönüş hızı aynı kalsın, acele etmesin */
+}
+
+/* İkincil Efekt (IŞILTI): Daha yoğun parlasın */
+.profile-container:hover::after {
+    opacity: 0.8;
+    box-shadow: 0 0 30px 10px rgba(220, 20, 60, 0.4);
+    animation-play-state: paused; /* Nefes alma dursun, parlak kalsın */
+}
+
+/* --- ANİMASYON TANIMLARI --- */
+@keyframes spin-flower {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes breathe-glow {
+    0% { transform: scale(0.95); opacity: 0.4; }
+    100% { transform: scale(1.05); opacity: 0.7; }
+}
+/* --- CRIMSON ÇİÇEK TEMALI PROFİL EFEKTİ BİTİŞİ --- */
+
+/* İSİM KISMI (Gotik ve Büyük) */
+.username {
+    font-family: 'UnifrakturMaguntia', cursive; 
+    font-size: 1.7rem; /* Çok büyük */
+    font-weight: 400;
+    letter-spacing: 3px;
+    margin-bottom: 0px;
+    line-height: 1.1;
+    /* Kırmızı/Beyaz karışımı gotik parlama */
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
+    transform: translateZ(30px); /* 3D: Karttan öne çıksın */
+}
+
+/* Bio ve Status */
+.bio {
+    font-size: 0.9rem;
+    color: #ddd;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    transform: translateZ(20px);
+}
+
+.status {
+    font-size: 0.8rem;
+    color: #bbb;
+    font-style: italic;
+    margin-bottom: 25px;
+    border-top: 1px solid rgba(255, 0, 0, 0.3); /* Kırmızı çizgi */
+    padding-top: 10px;
+    transform: translateZ(20px);
+}
+
+/* İkonlar */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    transform: translateZ(20px);
+}
+
+.social-links a {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 28px;
+    transition: all 0.3s ease;
+}
+
+/* İkon Hover Efektleri (Kırmızı Parlama) */
+.social-links a:hover {
+    color: #ff0000; /* Kırmızıya dönsün */
+    transform: translateY(-5px);
+    text-shadow: 0 0 15px rgba(255, 0, 0, 0.8); /* Kırmızı parlama */
+}
+
+/* Giriş Animasyonu */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* === TEK VE NET CURSOR (SOLA BAKAN - DARK RED) === */
+
+* {
+    cursor: none !important;
+}
+
+.cursor-dot {
+    position: fixed;
+    top: -100px;
+    left: -100px;
+    z-index: 2147483647;
+    pointer-events: none;
+    
+    /* RENK: Koyu Kan Kırmızısı (#8b0000) */
+    color: #8b0000; 
+    
+    /* Netlik için hafif gölge */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    
+    font-size: 24px; 
+    
+    /* YÖN DÜZELTME: */
+    /* scaleX(-1) -> İkonu ters çevirir (Sağı Sol yapar) */
+    /* rotate(15deg) -> Hafif doğal eğim verir */
+    transform: translate(-40%, -10%) scaleX(-1) rotate(-10deg);
+    
+    transition: color 0.2s, transform 0.1s;
+}
+
+/* --- HOVER DURUMU --- */
+body.hovered .cursor-dot {
+    color: #8b0000; /* Linkte Beyaz */
+    text-shadow: 0 0 15px #ff0000; /* Parlama */
+    
+    /* Hover olunca yönü bozulmadan hafif büyüsün */
+    transform: translate(-40%, -10%) scaleX(-1) rotate(-10deg) scale(1.2);
+}
+/* === KOPYALANDI BİLDİRİMİ (TOAST) === */
+#toast {
+    visibility: hidden; /* Başta gizli */
+    min-width: 250px;
+    background-color: #8b0000; /* Koyu Kırmızı */
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 16px;
+    position: fixed;
+    z-index: 10000; /* En üstte */
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-size: 17px;
+    font-family: 'VT323', monospace; /* Piksel fontunla uyumlu */
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); /* Kırmızı parlama */
+    border: 1px solid #ff0000;
+}
+
+/* Gösterme Animasyonu */
+#toast.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+/* === GİRİŞ EKRANI TASARIMI === */
+#enter-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* Zifiri karanlık */
+    z-index: 99999; /* İmleçten bile üstte olsun */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Tıklanabilir el işareti */
+    transition: opacity 1s ease; /* Kaybolurken yavaşça sönmesi için */
+}
+
+.enter-content {
+    text-align: center;
+}
+
+.enter-title {
+    font-family: 'UnifrakturMaguntia', cursive; /* Gotik Font */
+    font-size: 3rem;
+    color: #8b0000; /* Koyu Kan Kırmızısı */
+    text-shadow: 0 0 20px #ff0000; /* Kırmızı parlama */
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.click-prompt {
+    font-family: 'VT323', monospace; /* Piksel Font */
+    font-size: 1.5rem;
+    color: #888;
+    animation: blink 1.5s infinite; /* Yanıp sönme efekti */
+}
+
+/* Yanıp Sönme Animasyonu */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+/* === SES BUTONU STİLİ === */
+#music-control {
+    position: fixed; /* Ekrana çivile */
+    bottom: 20px;
+    left: 20px;
+    z-index: 10000; /* Her şeyin en üstünde olsun */
+    
+    color: rgba(255, 255, 255, 0.5); /* Pasifken soluk beyaz */
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    /* Site açıldığında gizli olsun, giriş yapınca JS bunu açacak */
+    display: none; 
+}
+
+#music-control:hover {
+    color: #ff0000; /* Üstüne gelince kırmızı */
+    text-shadow: 0 0 15px #ff0000;
+    transform: scale(1.1);
+}
+/* === SOFT NEFES ALMA EFEKTİ (DÜZELTİLDİ) === */
+@keyframes pulse-soft {
+    0% {
+        /* Başlangıçta çok silik */
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.1);
+        border-color: rgba(255, 0, 0, 0.2);
+    }
+    50% {
+        /* Ortada hafifçe parlasın (Patlamadan) */
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); 
+        border-color: rgba(255, 0, 0, 0.6);
+    }
+    100% {
+        /* Tekrar silikleşsin */
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.1);
+        border-color: rgba(255, 0, 0, 0.2);
+    }
+}
+
+/* Animasyonu kartlara tanımlayalım */
+.card, .spotify-card {
+    /* 4 saniyede yavaşça (infinite) dönsün */
+    animation: pulse-soft 4s infinite ease-in-out;
+}
+/* === TIKLAMA PARÇACIKLARI (DARK RED) === */
+.click-particle {
+    position: absolute;
+    width: 6px; /* Biraz daha belirgin olsun */
+    height: 6px;
+    
+    /* Rengi koyulaştırdık (Kan Kırmızısı) */
+    background: #8b0000; 
+    
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    animation: sparkle 0.8s linear forwards; /* Süreyi az uzattık */
+    
+    /* Parlaması kör etmesin, loş bir kırmızı ışık versin */
+    box-shadow: 0 0 8px rgba(139, 0, 0, 0.8); 
+}
+
+@keyframes sparkle {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x), var(--y)) scale(0);
+        opacity: 0;
+    }
+}
+/* === ÖZEL KAYDIRMA ÇUBUĞU (DARK THEME) === */
+::-webkit-scrollbar {
+    width: 6px; /* Daha ince, daha zarif */
+}
+
+/* Zemin (Simsiyah) */
+::-webkit-scrollbar-track {
+    background: #050505; 
+}
+
+/* Çubuk (Koyu Kırmızı) */
+::-webkit-scrollbar-thumb {
+    background: #4a0000; /* Çok koyu, neredeyse siyah kırmızı */
+    border-radius: 10px;
+}
+
+/* Üzerine gelince (Bir tık açılsın ama patlamasın) */
+::-webkit-scrollbar-thumb:hover {
+    background: #800000; /* Bordo */
+}
