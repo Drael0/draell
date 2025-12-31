@@ -11,7 +11,7 @@
 <div id="music-control">
     <i class="fa-solid fa-volume-high"></i>
 </div>
-<body>
+<body oncontextmenu="return false;">
 
     <div id="enter-screen">
     <div class="enter-content">
@@ -243,16 +243,10 @@ document.addEventListener('click', function(e) {
     window.onload = fixMobileCursor;
     // Ekran boyutu değişirse (telefonu yan çevirirse) yine çalıştır
     window.addEventListener('resize', fixMobileCursor);
-</script>
-    <script>/* === DÜZELTİLMİŞ KORUMA (SADECE SAĞ TIK) === */
-// Sadece sağ tıkı engeller, siteyi yormaz veya bozmaz.
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
-</script>
 </body>
 
 </html>
+
 
 
 
